@@ -6,6 +6,30 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+
+// let scrollerID;
+// let paused = true;
+// let interval = 0.5;
+
+// function startScroll(){
+//     let id = setInterval(function() {
+//         window.scrollBy(0, 28);
+//         if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+//             // end of page?
+//             stopScroll();
+//         }
+//     }, interval);
+//     return id;
+// }
+
+// function stopScroll() {
+//     clearInterval(scrollerID);
+// }
+
+// setInterval(startScroll, 5000);
+// scrollerID = startScroll();
+// paused = false;
+
 /* -------------------------------------------------------------------------- */
 
 /*                                    Utils                                   */
@@ -280,6 +304,7 @@ var navbarInit = function navbarInit() {
   });
 
   if (navbar) {
+    
     var windowHeight = window.innerHeight;
     var html = document.documentElement;
     var navbarCollapse = navbar.querySelector(Selector.NAVBAR_COLLAPSE);
@@ -300,7 +325,10 @@ var navbarInit = function navbarInit() {
     //navbar.style.backgroundImage = 'none'; // original code
 
     window.addEventListener(Events.SCROLL, function () {
-      
+      var a = document.getElementById('nav-link-1');
+      var b = document.getElementById('nav-link-2');
+      var c = document.getElementById('nav-link-3');
+      var d = document.getElementById('nav-link-4');
       var scrollTop = html.scrollTop;
       var alpha = scrollTop / windowHeight * 0.35; // Add class on scroll
 
@@ -310,13 +338,39 @@ var navbarInit = function navbarInit() {
         navbar.classList.remove('backdrop-dark');
       }
 
-      //custom logic
-      if (scrollTop > 575) {                        
-        navbar.classList.add('backdrop-dark');
-      }else{
-        navbar.classList.remove('backdrop-dark');
+      // Jika menggunakan desktop atau laptop
+      if (screen.width > 1300) {
+        if (scrollTop > 678) {                 
+          a.style.color = 'white';
+          b.style.color = 'white';
+          c.style.color = 'white';
+          d.style.color = 'white';
+          navbar.classList.add('backdrop-dark');
+        }else{
+          a.style.color = '';
+          b.style.color = '';
+          c.style.color = '';
+          d.style.color = '';
+          navbar.classList.remove('backdrop-dark');
+        }
       }
-      //end custom logic
+
+      // Jika menggunakan mobile
+      if (screen.width < 580) {
+        if (scrollTop > 725) {                 
+          a.style.color = 'white';
+          b.style.color = 'white';
+          c.style.color = 'white';
+          d.style.color = 'white';
+          navbar.classList.add('backdrop-dark');
+        }else{
+          a.style.color = '';
+          b.style.color = '';
+          c.style.color = '';
+          d.style.color = '';
+          navbar.classList.remove('backdrop-dark');
+        }
+      }
 
       alpha >= 1 && (alpha = 1);
       //navbar.style.backgroundColor = "rgba(".concat(colorRgb[0], ", ").concat(colorRgb[1], ", ").concat(colorRgb[2], ", ").concat(alpha, ")");
